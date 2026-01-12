@@ -1,0 +1,11 @@
+name: Deploy Terraform # A descriptive name for your workflow
+
+on: workflow_dispatch # Triggers the workflow manually
+
+jobs:
+  terraform-plan:
+    name: Terraform Plan # A descriptive name for the job
+    runs-on: windows-latest # The type of runner (virtual machine) the job will run on
+    steps:
+      - name: Deploy to Development Environment
+        run: echo "Deploying using staging secrets and rules"
