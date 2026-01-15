@@ -6,6 +6,41 @@ jobs:
   terraform-plan:
     name: Terraform Plan # A descriptive name for the job
     runs-on: windows-latest # The type of runner (virtual machine) the job will run on
+    env:
+      ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+      TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+    defaults:
+      run:
+        shell: powershell
+        working-directory: C:\Projects\Bench\Azure\IotEdge\BauschAndLomb\terraform
+
     steps:
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_SP_CREDENTIALS }}
+        env:
+          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          TF_VAR_ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+          TF_VAR_ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
+          TF_VAR_subscription_id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+          TF_VAR_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run:
+          terraform plan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+
       - name: Deploy to Development Environment
-        run: echo "Deploying using staging secrets and rules"
+        shell: powershell
+        run: |
+          echo "Completing deployment to Development Environment"
+
