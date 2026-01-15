@@ -42,7 +42,7 @@ Directly in command
 act -s AZURE_SP_CREDENTIALS='{ "subscriptionId": "046696af-1d89-4ff1-9ab1-411f666c1c06", "tenantId": "38e87a3b-2695-4888-9f38-f0feeed23c9f", "clientId": "3fc42ced-ec65-49ff-a5fa-548b14649804", "clientSecret": "je18Q~VJ2kGR6tBmySfHZwrojD6DOPoYOsDgrdwc" }'
 For sXecrets in your repository root or a secure location
 
-act -P windows-latest=-self-hosted --secret-file .secrets -j terraform-plan
+act -P windows-latest=-self-hosted --sXecret-file .secrets -j terraform-plan
 -----------------------------------------------------------------------------
 
 
