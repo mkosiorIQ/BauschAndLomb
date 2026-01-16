@@ -60,3 +60,9 @@ $env:TF_VAR_SUBSCRIPTION_ID = "046696af-1d89-4ff1-9ab1-411f666c1c06"
 -----------------------------------------------------------------------------
 May need az login to be able to pass two stage authentication.
 -----------------------------------------------------------------------------
+
+Build a Client Server to display in real time events received by the event hub
+- The front end is a web UI 
+- Using React 18+ with TypeScript for medical device reliability
+- Azure SignalR Service will be used for live telemetry
+- Tailwind CSS for rapid and consistent UI design

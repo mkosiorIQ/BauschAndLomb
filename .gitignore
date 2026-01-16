@@ -1,0 +1,25 @@
+# Compiled output
+*.exe
+
+# Draw.IO
+*.drawio.bkp
+
+# IDE - VSCode
+.vscode/*
+
+# Misc
+*secrets
+*.bak
+*.log
+
+# Terraform
+*tfplan
+*.lock.hcl
+*.tfstate
+*.tfstate.backup
+terraform/*/*/*/*/*/*/*/LICENSE.txt
+
+
+
+
+
