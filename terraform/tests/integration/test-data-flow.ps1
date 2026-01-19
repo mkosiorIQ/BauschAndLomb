@@ -47,7 +47,7 @@ $deviceConnectionString = az iot hub device-identity connection-string show --de
 
 # Send test telemetry messages
 Write-Host "`n=== Sending Test Telemetry Messages ===" -ForegroundColor Cyan
-$messageCount = 5
+$messageCount = 2
 
 for ($i = 1; $i -le $messageCount; $i++) {
     $timestamp = (Get-Date).ToString("o")

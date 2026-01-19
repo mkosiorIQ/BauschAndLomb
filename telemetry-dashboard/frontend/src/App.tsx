@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import TelemetryPage from './pages/TelemetryPage';
 
 interface WeatherForecast {
   date: string;
@@ -7,7 +9,7 @@ interface WeatherForecast {
   summary: string;
 }
 
-function App() {
+function HomePage() {
   const [message, setMessage] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [weatherData, setWeatherData] = useState<WeatherForecast[]>([]);
@@ -33,6 +35,23 @@ function App() {
       <h1>React + .NET Hello World</h1>
       <p>Message from Backend: {message}</p>
       {error && <p style={{color: 'red'}}>Error: {error}</p>}
+      
+      <hr />
+      
+      <Link to="/telemetry">
+        <button style={{
+          padding: '10px 20px',
+          fontSize: '16px',
+          backgroundColor: '#28a745',
+          color: 'white',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer',
+          marginBottom: '20px'
+        }}>
+          View Real-Time Telemetry
+        </button>
+      </Link>
       
       <hr />
       
@@ -79,6 +98,17 @@ function App() {
         </table>
       )}
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/telemetry" element={<TelemetryPage />} />
+      </Routes>
+    </Router>
   );
 }
 
