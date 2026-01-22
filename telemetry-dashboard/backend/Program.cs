@@ -1,4 +1,12 @@
+using Microsoft.Identity.Web;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Add Azure AD Authentication
+builder.Services.AddAuthentication("Bearer")
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+
+builder.Services.AddAuthorization();
 
 // Add Azure SignalR
 builder.Services.AddSignalR();
@@ -33,6 +41,8 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // After app.Build() and before app.Run()
+app.UseAuthentication(); // Add authentication middleware
+app.UseAuthorization();  // Add authorization middleware
 app.UseCors("AllowFrontend");
 app.MapHub<TelemetryHub>("/telemetryHub");
 

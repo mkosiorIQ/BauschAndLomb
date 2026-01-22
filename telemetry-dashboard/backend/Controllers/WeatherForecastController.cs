@@ -1,9 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BackendApi.Controllers
 {
     [ApiController]
     [Route("api/weatherforecast")]
+    [Authorize] // Requires authentication for all endpoints in this controller
     public class WeatherForecastController : ControllerBase
     {
         [HttpGet]

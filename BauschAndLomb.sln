@@ -4,8 +4,6 @@ VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "telemetry-dashboard", "telemetry-dashboard", "{235815B7-7486-EEE8-E8B8-472624DE27A0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySignalRApp", "telemetry-dashboard\MySignalRApp\MySignalRApp.csproj", "{99599F0D-8CB4-5208-4FD5-A9059BE350F3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
