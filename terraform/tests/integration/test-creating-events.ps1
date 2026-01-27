@@ -35,13 +35,14 @@ $eventHubName = az eventhubs eventhub list --resource-group $resourceGroupName -
 Write-Host "Event Hub Namespace: $eventHubNamespace" -ForegroundColor Green
 Write-Host "Event Hub: $eventHubName" -ForegroundColor Green
 
-# Create a test IoT device
-$deviceId = "test-device-$(Get-Random -Minimum 1000 -Maximum 9999)"
-Write-Host "`n=== Creating Test IoT Device ===" -ForegroundColor Cyan
-Write-Host "Device ID: $deviceId" -ForegroundColor Green
+## Create a test IoT device
+#$deviceId = "test-device-$(Get-Random -Minimum 1000 -Maximum 9999)"
+#Write-Host "`n=== Creating Test IoT Device ===" -ForegroundColor Cyan
+#Write-Host "Device ID: $deviceId" -ForegroundColor Green
 
-az iot hub device-identity create --device-id $deviceId --hub-name $iotHubName --resource-group $resourceGroupName
+#az iot hub device-identity create --device-id $deviceId --hub-name $iotHubName --resource-group $resourceGroupName
 
+$deviceId = "bl-device"
 # Get the device connection string
 $deviceConnectionString = az iot hub device-identity connection-string show --device-id $deviceId --hub-name $iotHubName --resource-group $resourceGroupName --query "connectionString" -o tsv
 
@@ -50,6 +51,7 @@ Write-Host "`n=== Sending Test Telemetry Messages ===" -ForegroundColor Cyan
 $messageCount = 2
 
 for ($i = 1; $i -le $messageCount; $i++) {
+    # Get the current date and time in ISO 8601 format (e.g., "2025-01-26T10:37:15.1234567-05:00")
     $timestamp = (Get-Date).ToString("o")
     $temperature = Get-Random -Minimum 20 -Maximum 30
     $humidity = Get-Random -Minimum 40 -Maximum 60
@@ -67,8 +69,13 @@ for ($i = 1; $i -le $messageCount; $i++) {
     # Escape the JSON string properly for Azure CLI
     # Use single quotes and escape internal quotes
     $escapedMessageBody = $messageBody.Replace('"', '\"')
+    
+    # Alternative: Write to temp file and send from file
+    #$tempFile = [System.IO.Path]::GetTempFileName()
+    #$messageBody | Out-File -FilePath $tempFile -Encoding utf8 -NoNewline
 
-    az iot device send-d2c-message --device-id $deviceId --hub-name $iotHubName --data $escapedMessageBody --resource-group $resourceGroupName
+    az iot device send-d2c-message --device-id $deviceId --hub-name $iotHubName --data  $escapedMessageBody --resource-group $resourceGroupName
+    #az iot device send-d2c-message --device-id $deviceId --hub-name $iotHubName --data  "@$tempFile" --resource-group $resourceGroupName
 
     Start-Sleep -Seconds 2
 }
@@ -161,10 +168,10 @@ Write-Host "Messages Sent: $messageCount" -ForegroundColor White
 Write-Host "Blobs in Storage: $($blobs.Count)" -ForegroundColor White
 Write-Host "Messages in Event Hub (last 10 min): $totalMessages" -ForegroundColor White
 
-# Cleanup test device
-Write-Host "`n=== Cleaning Up Test Device ===" -ForegroundColor Cyan
-az iot hub device-identity delete --device-id $deviceId --hub-name $iotHubName --resource-group $resourceGroupName
-Write-Host "Test device deleted" -ForegroundColor Green
+## Cleanup test device
+#Write-Host "`n=== Cleaning Up Test Device ===" -ForegroundColor Cyan
+#az iot hub device-identity delete --device-id $deviceId --hub-name $iotHubName --resource-group $resourceGroupName
+#Write-Host "Test device deleted" -ForegroundColor Green
 
 Write-Host "`n=== Test Completed ===" -ForegroundColor Green
 Write-Host "Note: If no data was found, try running this script again after waiting 2-3 minutes." -ForegroundColor Yellow
