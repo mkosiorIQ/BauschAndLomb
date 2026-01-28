@@ -148,7 +148,7 @@ resource "azurerm_mssql_server" "bl-server" {
   #administrator_login          = var.admin_username
   #administrator_login_password = local.admin_password
   administrator_login          = "bladmin"
-  administrator_login_password = "${UserTBD}"
+  administrator_login_password = var.sql_admin_password
   version                      = "12.0"
 }
 
